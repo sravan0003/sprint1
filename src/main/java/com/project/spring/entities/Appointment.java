@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,24 +20,27 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Appointment")
+@Table(name = "Appoint_ment")
 public class Appointment {
 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Column(name = "date_of_join")
 	private LocalDate date;
-	private int duration;
+	@Column(name = "duration_time")
+	private Integer duration;
 	@Enumerated(EnumType.STRING)
 	private ApprovalStatus approvalStatus;
 	
-	@ManyToOne
-	@JoinColumn(name ="Appointment_details")
+	  @ManyToOne(fetch = FetchType.LAZY)
+      @JoinColumn(name = "Appointment_details", nullable = false)
 	private Admin1 admin;
 	
 	@ManyToOne
-	@JoinColumn(name = "Appointment_details")
+	@JoinColumn(name = "Appointment_details",insertable =false, updatable =false)
 	private Patient1 patient;
 	
 	@ManyToMany(cascade = CascadeType.ALL )

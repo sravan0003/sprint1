@@ -7,12 +7,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
 @Entity
 @Table(name ="User_test")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
 	@Id
@@ -20,10 +23,10 @@ public class User {
 	private Long id;
 	
 	@Column(nullable = false)
-	@Size(min = 2, message="user name should have atleast two characters")
+	@Size(min = 2)
 	private String userName;
 	
-	@Size(min = 8, message="password should have atleast eight characters")
+	@Size(min = 8)
 	@Column(nullable = false)
 	private String password;
 	@Column(nullable = false)
@@ -31,8 +34,8 @@ public class User {
 	private Role role;
 	
 	
-	public User(Long id, @Size(min = 2, message = "user name should have atleast two characters") String userName,
-			@Size(min = 8, message = "password should have atleast eight characters") String password, Role role) {
+	public User(Long id, @Size(min = 2) String userName,
+			@Size(min = 8) String password, Role role) {
 		super();
 		this.id = id;
 		this.userName = userName;

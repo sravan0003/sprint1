@@ -17,9 +17,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Patient1 extends User {
-	private User user;
+	//private User user;
 	private String name;
 	private Long PhoneNumber;
 	private int age;
@@ -33,10 +32,10 @@ public class Patient1 extends User {
 	@JoinColumn(name ="patient_details")
 	private Admin1 admin;
 	
-	@OneToMany(mappedBy = "Patient1")
+	@OneToMany(mappedBy = "patient")
 	List<Appointment> appointment;
 	
-	@ManyToMany(mappedBy = "Patient1")
+	@ManyToMany(mappedBy = "patient")
 	List<DiagnosticCenter> diagCenter;
 
 	
@@ -65,10 +64,9 @@ public class Patient1 extends User {
 
 	public Patient1(Long id, @Size(min = 2, message = "user name should have atleast two characters") String userName,
 			@Size(min = 8, message = "password should have atleast eight characters") String password, Role role,
-			User user, String name, Long phoneNumber, int age, com.project.spring.entities.Address address,
+		 String name, Long phoneNumber, int age, com.project.spring.entities.Address address,
 			Gender gender, Admin1 admin, List<Appointment> appointment, List<DiagnosticCenter> diagCenter) {
 		super(id, userName, password, role);
-		this.user = user;
 		this.name = name;
 		PhoneNumber = phoneNumber;
 		this.age = age;
@@ -80,16 +78,6 @@ public class Patient1 extends User {
 	}
 
 
-
-	public User getUser() {
-		return user;
-	}
-
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 
 
@@ -201,7 +189,6 @@ public class Patient1 extends User {
 		result = prime * result + ((diagCenter == null) ? 0 : diagCenter.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -250,11 +237,6 @@ public class Patient1 extends User {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
 		return true;
 	}
 
@@ -262,7 +244,7 @@ public class Patient1 extends User {
 
 	@Override
 	public String toString() {
-		return "Patient1 [user=" + user + ", name=" + name + ", PhoneNumber=" + PhoneNumber + ", age=" + age
+		return "Patient1 [ name=" + name + ", PhoneNumber=" + PhoneNumber + ", age=" + age
 				+ ", Address=" + Address + ", gender=" + gender + ", admin=" + admin + ", appointment=" + appointment
 				+ ", diagCenter=" + diagCenter + "]";
 	}

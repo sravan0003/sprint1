@@ -1,5 +1,6 @@
 package com.project.spring.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,6 +8,7 @@ import javax.persistence.Enumerated;
 @Embeddable
 public class TestResults {
 
+	@Column(name = "result_id")
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	private Condition condition;

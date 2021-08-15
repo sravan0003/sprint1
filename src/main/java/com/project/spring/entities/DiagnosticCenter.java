@@ -3,6 +3,7 @@ package com.project.spring.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,6 +23,7 @@ import javax.persistence.Table;
 public class DiagnosticCenter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name ="Id_number")
 	private Long id;
 	
 	private String name;
@@ -43,7 +45,7 @@ public class DiagnosticCenter {
 	@ManyToMany(cascade = CascadeType.ALL)
 	List<Patient1> patient;
 	
-	@ManyToMany(mappedBy = "Diag_Center")
+	@ManyToMany(mappedBy = "diagCenter")
 	List<Appointment> appointment;
 
 	public DiagnosticCenter(Long id, String name, String contactNo, Address address, String contactEmail,

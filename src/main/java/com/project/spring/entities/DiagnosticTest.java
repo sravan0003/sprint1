@@ -1,11 +1,13 @@
 package com.project.spring.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 
 
 @Embeddable
 public class DiagnosticTest {
+	@Column(name = "test_id")
 	 private Long id ; 
 	 private String testname; 
 	 private Double price;

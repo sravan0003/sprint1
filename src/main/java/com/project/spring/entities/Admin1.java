@@ -2,30 +2,35 @@ package com.project.spring.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Admin1 {
+public class Admin1 extends User{
 
-	private User user;
+	//private User user;
 	private String mobileNumber;
 	private String email;
 	@Embedded
 	private Address address;
 	
-	@OneToMany(mappedBy = "Admin1")
+	@OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "admin")
 	List<Patient1> patientList;
 	
-	@OneToMany(mappedBy = "Admin1")
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "admin")
 	List<Appointment> appointment;
 	
-	@OneToMany(mappedBy = "Admin1")
+	@OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "admin")
 	List<DiagnosticCenter> diagCenter;
 
 	
@@ -38,10 +43,9 @@ public class Admin1 {
 
 
 
-	public Admin1(User user, String mobileNumber, String email, Address address, List<Patient1> patientList,
+	public Admin1( String mobileNumber, String email, Address address, List<Patient1> patientList,
 			List<Appointment> appointment, List<DiagnosticCenter> diagCenter) {
 		super();
-		this.user = user;
 		this.mobileNumber = mobileNumber;
 		this.email = email;
 		this.address = address;
@@ -53,19 +57,7 @@ public class Admin1 {
 
 
 
-	public User getUser() {
-		return user;
-	}
-
-
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
-
+	
 
 	public String getMobileNumber() {
 		return mobileNumber;
@@ -161,7 +153,6 @@ public class Admin1 {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((mobileNumber == null) ? 0 : mobileNumber.hashCode());
 		result = prime * result + ((patientList == null) ? 0 : patientList.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -207,11 +198,7 @@ public class Admin1 {
 				return false;
 		} else if (!patientList.equals(other.patientList))
 			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
+		
 		return true;
 	}
 
@@ -220,7 +207,7 @@ public class Admin1 {
 
 	@Override
 	public String toString() {
-		return "Admin1 [user=" + user + ", mobileNumber=" + mobileNumber + ", email=" + email + ", address=" + address
+		return "Admin1 [ mobileNumber=" + mobileNumber + ", email=" + email + ", address=" + address
 				+ ", patientList=" + patientList + ", appointment=" + appointment + ", diagCenter=" + diagCenter + "]";
 	}
 	
